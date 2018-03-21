@@ -13,8 +13,23 @@ function requestHandler(request, response) {
   }
 }
 
+
 var server = http.createServer(requestHandler);
 
 server.listen(PORT, () => {
   console.log(`Server listening on: http://localhost:${PORT}`);
 });
+
+
+
+function generateRandomString() {
+
+var string = "";
+var characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+for(var i = 0; i < 6; i++){
+string += characters.charAt(Math.floor(Math.random() * characters.length));}
+
+return string;
+
+}
