@@ -79,3 +79,8 @@ app.post("/urls", (req, res) => {
   console.log(longURL);  // debug statement to see POST parameters
   res.send("URL Shortening Completed");         // Respond with 'Ok' (we will replace this)
 });
+
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id]
+  res.redirect("/urls");
+});
