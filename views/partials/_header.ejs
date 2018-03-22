@@ -21,12 +21,7 @@ body {padding-top: 50px; }
 </div>
 </nav>
 
-<body>
 
-<form method="POST" action="/login">
-  <input name="username">
-  <button type="submit" name="login">Login</button>
-</body>
 <!-- views/partials/_header.ejs -->
 
 <meta charset="UTF-8">
@@ -49,3 +44,24 @@ body {padding-top: 50px; }
 </div>
 </div>
 </nav>
+
+
+
+
+
+<% if(typeof username === 'undefined') {%>
+<!-- <form action="/login" method="POST">
+  <label for="username">username:</label>
+    <input id="username" type="text" name="username">
+    <button type="submit">Login</button>
+</form> -->
+
+<% }else{ %>
+
+  <span><%= username %></span>
+
+<form action="/logout" method="POST">
+    <button type="submit">Logout</button>
+</form>
+<% } %>
+</br>
