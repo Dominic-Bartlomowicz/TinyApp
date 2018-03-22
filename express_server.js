@@ -11,8 +11,6 @@ return string;
 
 }
 
-
-
 // Constants
 
 var express = require("express");
@@ -69,6 +67,11 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+app.post("/urls/:id", (req, res) => {
+  let templateVars = { shortURL: req.params.id, longURL: urlDatabase[req.params.id] };
+  res.render("urls_show", templateVars);
+});
+
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render("urls_index", templateVars);
@@ -77,10 +80,16 @@ app.get("/urls", (req, res) => {
 app.post("/urls", (req, res) => {
   console.log(generateRandomString());
   console.log(longURL);  // debug statement to see POST parameters
-  res.send("URL Shortening Completed");         // Respond with 'Ok' (we will replace this)
+  res.send("URL Shortening Completed"); // Respond with 'Ok' (we will replace this)
 });
 
 app.post("/urls/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id]
+  res.redirect("/urls");
+});
+
+app.post("/urls/:id/edit", (req, res) => {
+  console.log(req.body["newurl"]);
+  urlDatabase[req.params.id] = req.body["newurl"];
   res.redirect("/urls");
 });

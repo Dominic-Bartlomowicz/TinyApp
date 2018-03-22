@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    </head>
+        <body>
+
+            <header><%include ./partials/_header.ejs%></header>
+
+          <ul>
+
+          <% Object.keys(urls).forEach(function (key) { %>
+
+        <li><%= key %> - <%= urls[key] %></li>
+
+      <form method="POST" action="/urls/<%=key%>/delete">
+    <input type="submit" name="delete" value="Delete"></form>
+  <form method="POST" action="/urls/<%=key%>/">
+<input type="submit" name="edit" value="Edit"></form>
+
+<% }); %>
+
+</ul>
+
+<a href=/new>Shorten a new URL!</a>
+
+  </body>
+</html>
