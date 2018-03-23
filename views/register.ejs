@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head></head>
-  <body style="font-size:20px; padding:50px;">
+  <body style="font-size:20px; padding:50px; background-color: #ADD8E6";>
     <% include partials/_header %>
-    <form method="POST" action="/register"> <a>Username:</a>
-      <input name="username">
+
+    <div align="left">
+      <br></br>
+  Please enter your email and desired password:
+</div>
+<br></br>
+    <form method="POST" action="/register"> <a>Email:</a>
+      <input type = "email" name="email">
       <a>Password:</a>
-      <input name="password">
-      <button type="submit" name="login">Login</button>
+      <input type = "password" name="password">
+      <button type="submit" name="register">Register</button>
     </form>
 
   </body>
 </html>
+
+
+<style>
+  h1 {text-align:center;}
+  p {text-align:center;}
+</style>
+
+<br></br>
+
+<a href=>Generate a random user ID!</a>
+
+<br></br>
+<br></br>
+<br></br>
+
+  <h1><a href=/urls>TinyApp</a></h1>
+  <p>A Cool App.</p>

@@ -3,11 +3,18 @@
   <head>
     </head>
         <body>
+
             <header><%include ./partials/_header.ejs%></header>
           <ul>
-          <% Object.keys(urls).forEach(function (key) { %>
+              <br></br>
+      <% Object.keys(urls).forEach(function (key) { %>
+        <%console.log('obj:',key)%>
 
-        <li><%= key %> - <%= urls[key] %></li>
+        <% if (userID !== urls[key].id) { %>
+
+          console.log(keys);
+
+          <li><%= key %> - <%= urls[key] %></li>
 
             <form method="POST" action="/urls/<%=key%>/delete">
               <input type="submit" name="delete" value="Delete">
@@ -17,11 +24,49 @@
               <input type="submit" name="edit" value="Edit">
             </form>
 
+        <% } %>  </li>
+
+  <br></br>
+
       <% }); %>
 
 </ul>
 
-<a href=/new>Shorten a new URL!</a>
+
+  <% if(userID) {%>
+    <div align="left">
+    Logged in as: <%= userID %>
+    </div>
+  <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+  </form>
+  <% } %>
+  </br>
+
+  <style>
+  body{
+  background-color: #ADD8E6;
+  }
+  </style>
+
+
+<a href=/urls/new>Shorten a new URL!</a>
+<br></br>
+<a href=/login>Login</a>
+<br></br>
+<a href=/register>Register</a>
 
   </body>
 </html>
+
+
+<style>
+  h1 {text-align:center;}
+  p {text-align:center;}
+</style>
+
+<br></br>
+<br></br>
+
+  <h1><a href=/urls>TinyApp</a></h1>
+  <p>A cool app.</p>

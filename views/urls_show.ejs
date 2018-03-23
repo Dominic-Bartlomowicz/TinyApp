@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <body style="font-size:20px; padding:50px; background-color: #ADD8E6";>
       <header><% include ./partials/_header.ejs %></header>
 </head>
 <body>
   <p>ShortURL: <%=shortURL%></p>
   <li><%=longURL%></li>
+  <br></br>
   <form action="/urls/<%=shortURL%>/edit" method="POST">
-    <label for="name">New URL</label>
+    <label for="name">Please Enter New URL:</label>
     <input id="name" type="text" name="newurl">
+
+    <br></br>
+    <br></br>
+
     <button type="submit">Update</button>
 
 	<%= shortURL %> - <%= longURL %>
+
+<br></br>
 
     <a href=/urls>Return to previous page!</a>
 
