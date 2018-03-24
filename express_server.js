@@ -40,7 +40,7 @@ const users = {
 
 
 // Change below into objects that have a key long URL where the value
-// would be where the string is now. Then change URL database to correct structure. 
+// would be where the string is now. Then change URL database to correct structure.
 
 var urlDatabase = {
   // XXX
@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/urls.json", (req, res) => {
+app.get(".json", (req, res) => {
   res.json(urlDatabase);
 });
 
@@ -86,47 +86,53 @@ app.get("/u/:shortURL", (req, res, next) => {
   res.redirect(longURL);
 });
 
-app.get("/urls/new", isLoggedIn, (req, res) => {
+app.get("/home/new", isLoggedIn, (req, res) => {
   let templateVars = { shortURL: req.params.id, longURL: urlDatabase[req.params.id], user: req.cookies["user_id"] };
   res.render("urls_new", templateVars);
 });
 
-app.get("/urls/:id", (req, res) => {
+app.get("/home/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id, longURL: urlDatabase[req.params.id], user: req.cookies["user_id"]};
   res.render("urls_show", templateVars);
 });
 
-app.post("/urls/:id", (req, res) => {
+app.post("/home/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id, longURL: urlDatabase[req.params.id], user: req.cookies["user_id"]};
   res.render("urls_show", templateVars);
 });
 
-app.get("/urls", (req, res) => {
+app.get("/home", (req, res) => {
   //res.cookie("user_id", req.body.user_id);
   let templateVars = { urls: urlDatabase, userID: req.cookies["user_id"]};
   console.log(templateVars.userID);
   res.render("urls_index", templateVars);
 });
 
-app.post("/urls", (req, res) => {
+// modify such that longURL so that key-value, where value is an object.
+
+app.post("/home", (req, res) => {
   let shortURL = generateRandomString();
   let{longURL} = req.body;
   urlDatabase[shortURL] = longURL
-  res.redirect("/urls");
+  res.redirect("/home");
+  let(longURL )
+  {
+
+  }
 });
 
-app.post("/urls/:id/delete", (req, res) => {
+app.post("/home/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id]
-  res.redirect("/urls");
+  res.redirect("/home");
 });
 
-app.post("/urls/:id/edit", (req, res) => {
+app.post("/home/:id/edit", (req, res) => {
   console.log(req.body["newurl"]);
   urlDatabase[req.params.id] = req.body["newurl"];
-  res.redirect("/urls");
+  res.redirect("/home");
 });
 
-app.post("/urls", (req, res) => {
+app.post("/home", (req, res) => {
  const shortURL = generateRandomString();
  const longURL = req.body.longURL;
  let urlObj = {
@@ -135,7 +141,7 @@ app.post("/urls", (req, res) => {
  }
  if (longURL) {
    urlDatabase[shortURL] = urlObj.longURL;
-   res.redirect("/urls");
+   res.redirect("/home");
  } else {
    res.status(403).send("No Link entered")
  }
@@ -158,7 +164,7 @@ app.post("/login", (req, res) => {
   else{
     if (foundUser.password === req.body.password){
       res.cookie('user_id', foundUser['id']);
-      res.redirect("/urls");
+      res.redirect("/home");
     }
     else{
       res.status(400).send("Incorrect password!");
@@ -188,7 +194,7 @@ else{
     users[userID] = {id: userID, email: email, password: password};
     res.cookie('user_id', userID)
     console.log("it didnt find an email", userID)
-    res.redirect("/urls");
+    res.redirect("/home");
   }
   else {
     res.status(400).send("User already registered! Please press back button.");
@@ -200,5 +206,5 @@ else{
 
 app.post("/logout", (req, res) => {
 res.clearCookie("user_id");
-res.redirect("/urls");
+res.redirect("/home");
 });
