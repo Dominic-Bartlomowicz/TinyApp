@@ -1,3 +1,5 @@
+<!-- EJS for the URLs index page, display URL database created by the user -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,21 +9,15 @@
             <ul>
               <br></br>
                 <% Object.keys(urls).forEach(function (key) { %>
-                  <%console.log('obj:',key)%>
-                    <% if (userID !== urls[key].id) { %>
-                      <li><%= key %> - <%= urls[key] %></li>
-                <form method="POST" action="/home/<%=key%>/delete">
-              <input type="submit" name="delete" value="Delete">
-            </form>
-          <form method="POST" action="/home/<%=key%>/">
-        <input type="submit" name="edit" value="Edit">
-      </form>
-    <% } %>  </li>
-      <br></br>
-        <% }); %>
-          </ul>
-
-
+                  <li><%= key %> - <%= urls[key].longURL %>
+                    <form method="POST" action="/urls/<%=key%>/delete">
+                      <input type="submit" name="delete" value="Delete">
+                    </form>
+                  <a href="/urls/<%= key %>">Edit</a>
+                  </li>
+                  <br></br>
+                <% }); %>
+            </ul>
       <% if(userID) {%>
         <div align="left">
           Logged in as: <%= userID %>
@@ -36,9 +32,9 @@
     body{
       background-color: #ADD8E6;
         }
-        </style>
+</style>
 
-<a href=/home/new>Shorten a new URL!</a>
+<a href=/urls/new>Shorten a new URL!</a>
   <br></br>
     <a href=/login>Login</a>
   <br></br>
@@ -55,5 +51,5 @@
 <br></br>
 <br></br>
 
-<h1><a href=/home>TinyApp</a></h1>
+<h1><a href=/urls>TinyApp</a></h1>
 <p>A cool app.</p>
