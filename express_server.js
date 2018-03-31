@@ -192,14 +192,12 @@ app.post("/login", (req, res) => {
   let foundUser = Object.values(users).find(user => user.email === req.body.email);
   if(!foundUser){
     res.status(400).send("User does not exist");
-  }
-  else{
+  } else {
     var hashedPassword = foundUser.password;
     if (bcrypt.compareSync(req.body.password,hashedPassword)){
       res.cookie('user_id', foundUser['id']);
       res.redirect("/urls");
-    }
-    else{
+    } else {
       res.status(400).send("Incorrect password!");
     }
   }
@@ -216,18 +214,15 @@ app.post("/register", (req, res) => {
   let userID = generateRandomString();
   let{email, password} = req.body;
   if(!req.body.email || !req.body.password) {
-    res.status(400).send("Bad request");
-  }
-
-  else {
-    let foundEmail = Object.values(users).find(user => user.email === email);
+    res.status(400).send("Email or password fields cannot be blank!");
+  } else {
+    let foundEmail = Object.values(users).find(user => user.email === email); // Thanks to mentor for explaining this syntax
     if(!foundEmail){
       const hashedPassword = bcrypt.hashSync(password, 10);
       users[userID] = {id: userID, email: email, password: hashedPassword};
       req.session.user_id = userID;
       res.redirect("/urls");
-    }
-    else {
+    } else {
     res.status(400).send("User already registered! Please press back button.");
     }
   }
