@@ -1,0 +1,28 @@
+{
+  "name": "tinyapp",
+  "version": "1.0.0",
+  "description": "URL Shortener",
+  "main": "express_server.js",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dominic-Bartlomowicz/TinyApp.git"
+  },
+  "author": "Dominic Bartlomowicz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dominic-Bartlomowicz/TinyApp/issues"
+  },
+  "homepage": "https://github.com/Dominic-Bartlomowicz/TinyApp#readme"
+}

@@ -145,21 +145,33 @@ app.get("/urls", isLoggedIn, (req, res) => {
 
 // Deletes the specified url
 
-app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id]
-  res.redirect("/urls");
+app.post("/urls/:id/delete", isLoggedIn, (req, res) => {
+
+ if(req.session.user_id === urlDatabase[req.params.id].userID){
+   delete urlDatabase[req.params.id]
+   res.redirect("/urls");
+ } else {
+   res.status(403).send("Incorrect user!");
+ }
+
 });
 
 
 // Edits the specified url
 
-app.post("/urls/:id/edit", (req, res) => {
+app.post("/urls/:id/edit", isLoggedIn, (req, res) => {
   let urlObj = {
     longURL : req.body.newurl,
     userID: req.session.user_id
   }
-  urlDatabase[req.params.id] = urlObj;
-  res.redirect("/urls");
+
+  if(req.session.user_id === urlDatabase[req.params.id].userID){
+    urlDatabase[req.params.id] = urlObj;
+    res.redirect("/urls");}
+    else {
+    res.status(403).send("Incorrect user!");
+  }
+
 });
 
 
@@ -195,7 +207,7 @@ app.post("/login", (req, res) => {
   } else {
     var hashedPassword = foundUser.password;
     if (bcrypt.compareSync(req.body.password,hashedPassword)){
-      res.cookie('user_id', foundUser['id']);
+      req.session.user_id = foundUser['id'];
       res.redirect("/urls");
     } else {
       res.status(400).send("Incorrect password!");
