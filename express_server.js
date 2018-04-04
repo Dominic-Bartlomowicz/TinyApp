@@ -85,6 +85,18 @@ function urlsforuser(userID) {
   return obj;
 }
 
+function emailsforuser(userID) {
+
+  for(var key in users){
+    var user = users[key];
+
+    if(user.id === userID){
+      return user.email;
+    }
+  }
+return "";
+}
+
 
 // Determines if a user is logged in
 
@@ -138,7 +150,7 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.get("/urls", isLoggedIn, (req, res) => {
-  let templateVars = {urls: urlsforuser(req.session.user_id), userID: req.session.user_id};
+  let templateVars = {urls: urlsforuser(req.session.user_id), email: emailsforuser(req.session.user_id)};
   res.render("urls_index", templateVars);
 });
 

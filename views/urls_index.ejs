@@ -8,7 +8,7 @@
           <header><%include ./partials/_header.ejs%></header>
             <ul>
               <br></br>
-                <% Object.keys(urls).forEach(function (key) { %>
+                <% for (var key in urls) { %>
                   <li><%= key %> - <%= urls[key].longURL %>
                     <form method="POST" action="/urls/<%=key%>/delete">
                       <input type="submit" name="delete" value="Delete">
@@ -16,11 +16,11 @@
                   <a href="/urls/<%= key %>">Edit</a>
                   </li>
                   <br></br>
-                <% }); %>
+                <% } %>
             </ul>
-      <% if(userID) {%>
+      <% if(email) {%>
         <div align="left">
-          Logged in as: <%= userID %>
+          Logged in as: <%= email %>
         </div>
       <form action="/logout" method="POST">
     <button type="submit">Logout</button>
